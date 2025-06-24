@@ -13,26 +13,41 @@ import Auth from "./pages/Auth";
  * PUBLIC_INTERFACE
  */
 function App() {
-  // Simple page state for demonstration (no real router)
+  // Manages user login state and page navigation.
   const [user, setUser] = useState(null);
   const [page, setPage] = useState("dashboard");
 
-  // Navigation handler for sidebar
+  // Handler to switch pages in the sidebar
   const handleNav = (target) => setPage(target);
 
-  // Sidebar links for navigation (demo, should use React Router in a full app)
-  const sidebarLinks = [
-    { name: "Dashboard", key: "dashboard" },
-    { name: "Transactions", key: "transactions" },
-    { name: "Reports", key: "reports" },
-    { name: "Categories", key: "categories" },
-    { name: "Users", key: "users" },
-  ];
+  // Handler to simulate login
+  // PUBLIC_INTERFACE
+  const handleMockLogin = (email, password) => {
+    // Only accept the specific demo credentials (per spec).
+    if (
+      email === "demo@company.com" &&
+      password === "demopassword123"
+    ) {
+      setUser({ email });
+      setPage("dashboard");
+      return { success: true };
+    }
+    return { success: false, message: "Invalid demo credentials." };
+  };
+
+  // Handler to sign out and return to login screen
+  // PUBLIC_INTERFACE
+  const handleLogout = () => {
+    setUser(null);
+    setPage("dashboard");
+  };
 
   if (!user) {
-    return <Auth />;
+    // Pass the mock login handler to Auth page
+    return <Auth onLogin={handleMockLogin} />;
   }
 
+  // For possible later expansion of sidebar navigation logic
   let PageContent;
   switch (page) {
     case "dashboard":
@@ -54,11 +69,9 @@ function App() {
       PageContent = <Dashboard />;
   }
 
-  // Pass navigation handler to the sidebar
   return (
     <div className="app">
-      {/* Passes sidebarLinks and navigation logic to custom Sidebar */}
-      <Layout>
+      <Layout onNav={handleNav} user={user} onLogout={handleLogout}>
         {PageContent}
       </Layout>
     </div>
