@@ -1,0 +1,4 @@
+{
+    "command": "npm install && npx tsc --noEmit && npm test -- --ci",
+    "working_directory": "/home/kavia/workspace/code-generation/smallbizfinancetracker-9956-ce38b56b/frontend_app_workspace/frontend_app"
+}

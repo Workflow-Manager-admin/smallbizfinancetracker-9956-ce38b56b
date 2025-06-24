@@ -1,0 +1,22 @@
+import React from "react";
+
+/**
+ * Basic modal dialog for forms and details overlays.
+ * PUBLIC_INTERFACE
+ */
+const Modal = ({ open, title, children, onClose }) => {
+  if (!open) return null;
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal" onClick={e => e.stopPropagation()}>
+        <div className="modal-header">
+          <h3>{title}</h3>
+          <button className="modal-close" onClick={onClose}>&times;</button>
+        </div>
+        <div className="modal-content">{children}</div>
+      </div>
+    </div>
+  );
+};
+
+export default Modal;

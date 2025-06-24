@@ -1,0 +1,4 @@
+{
+    "command": "pytest",
+    "working_directory": "/home/kavia/workspace/code-generation/smallbizfinancetracker-9956-ce38b56b/backend_api_workspace/backend_api"
+}
